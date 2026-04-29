@@ -1,0 +1,19 @@
+
+
+services:
+  backend:
+    build: ./server
+    ports:
+      - "5001:5001"
+    env_file:
+      - ./server/.env
+    volumes:
+      - ./server:/app
+    restart: always
+
+  frontend:
+    build: ./client
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend

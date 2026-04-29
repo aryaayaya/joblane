@@ -14,7 +14,7 @@ export const registerUser = (userData) => async (dispatch) => {
     try {
         dispatch(registerRequest())
 
-        const { data } = await axios.post("https://joblane-backend.onrender.com/api/v1/register", userData);
+        const { data } = await axios.post("http://localhost:5001/api/v1/register", userData);
 
         dispatch(registerSuccess())
         localStorage.setItem('userToken', data.token)
@@ -36,7 +36,7 @@ export const loginUser = (userData) => async (dispatch) => {
     try {
         dispatch(loginRequest())
 
-        const { data } = await axios.post("https://joblane-backend.onrender.com/api/v1/login", userData);
+        const { data } = await axios.post("http://localhost:5001/api/v1/login", userData);
 
         dispatch(loginSuccess())
         localStorage.setItem('userToken', data.token)
@@ -53,6 +53,10 @@ export const loginUser = (userData) => async (dispatch) => {
 
 export const logOrNot = () => async (dispatch) => {
     try {
+        if (!localStorage.getItem('userToken')) {
+            dispatch(isLoginFail())
+            return
+        }
         dispatch(isLoginRequest())
         const config = {
             headers: {
@@ -60,7 +64,7 @@ export const logOrNot = () => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.get("https://joblane-backend.onrender.com/api/v1/isLogin", config);
+        const { data } = await axios.get("http://localhost:5001/api/v1/isLogin", config);
 
         dispatch(isLoginSuccess(data.isLogin))
 
@@ -74,6 +78,10 @@ export const logOrNot = () => async (dispatch) => {
 
 export const me = () => async (dispatch) => {
     try {
+        if (!localStorage.getItem('userToken')) {
+            dispatch(getMeFail())
+            return
+        }
         dispatch(getMeRequest())
         const config = {
             headers: {
@@ -81,7 +89,7 @@ export const me = () => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.get("https://joblane-backend.onrender.com/api/v1/me", config);
+        const { data } = await axios.get("http://localhost:5001/api/v1/me", config);
         
         localStorage.setItem("role", data.user.role)
 
@@ -103,7 +111,7 @@ export const changePass = (userData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.put("https://joblane-backend.onrender.com/api/v1/changePassword", userData, config)
+        const { data } = await axios.put("http://localhost:5001/api/v1/changePassword", userData, config)
 
         dispatch(changePasswordSuccess())
         toast.success("Password Changed successfully !")
@@ -125,7 +133,7 @@ export const updateProfile = (userData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.put("https://joblane-backend.onrender.com/api/v1/updateProfile", userData, config)
+        const { data } = await axios.put("http://localhost:5001/api/v1/updateProfile", userData, config)
 
         dispatch(updateProfileSuccess())
         toast.success("Profile Updated successfully !")
@@ -151,7 +159,7 @@ export const deleteAccount = (userData) => async (dispatch) => {
             }
         }
 
-        const { data } = await axios.put("https://joblane-backend.onrender.com/api/v1/deleteAccount", userData, config)
+        const { data } = await axios.put("http://localhost:5001/api/v1/deleteAccount", userData, config)
 
         console.log(data)
 

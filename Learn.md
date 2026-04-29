@@ -40,7 +40,7 @@ Follow the installation instructions for MongoDB, Express.js, React.js, and Node
     ```
 7. Configure env file (generate config.env template by running the following command)
     ```bash
-    cp config.env config.sample.env
+    cp config.sample.env config.env
     ```
 8. Open config.env file from config folder replace the following credentials
     ```bash
