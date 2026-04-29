@@ -2,10 +2,11 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  build-and-push:
+  build-push-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,4 +32,9 @@ jobs:
           context: ./client
           push: true
           tags: aryakuraria/joblane-frontend:latest
-          
+
+      - name: Deploy Backend to Render
+        run: curl -X POST "${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}"
+
+      - name: Deploy Frontend to Render
+        run: curl -X POST "${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}"
