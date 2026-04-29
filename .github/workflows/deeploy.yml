@@ -31,3 +31,4 @@ jobs:
           context: ./client
           push: true
           tags: aryakuraria/joblane-frontend:latest
+          
